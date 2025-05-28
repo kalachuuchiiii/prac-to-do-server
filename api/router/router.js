@@ -5,7 +5,7 @@ const { remove } = require("../controller/methods/delete.js");
 const { update } = require("../controller/methods/update.js");
 const { filter } = require("../controller/methods/filter.js");
 const { Task } = require("../model/taskModel.js");
-
+const { errorCatcher } = require("../errorCatcher/errorCatcher.js");
 router.post("/create-task", async(req, res) => {
   try{
         const info = create(Task, req, res);
@@ -13,19 +13,17 @@ router.post("/create-task", async(req, res) => {
         console.log("task", e)
       }
 })
-router.patch("/update-task", async(req, res) => {
+router.patch("/update-task", errorCatcher(async(req, res, next) => {
   await update(Task, req, res);
-})
-router.get("/filter-task", async(req, res) => {
+}))
+router.get("/filter-task", errorCatcher(async(req, res, next) => {
   await filter(Task, null, req, res);
-})
-router.get("/read-task", async(req, res) => {
-  
+}))
+router.get("/read-task", errorCatcher(async(req, res, next) => {
    await read(Task, req, res)
-     
-})
-router.delete("/delete-task/:id", async(req, res) => {
+}))
+router.delete("/delete-task/:id", errorCatcher(async(req, res) => {
   await remove(Task, req, res);
-})
+}))
 
 module.exports = router;
