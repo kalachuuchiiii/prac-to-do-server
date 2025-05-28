@@ -9,7 +9,7 @@ exports.filter = async(Model, filter = null, req, res) => {
     }
     
     if(!Array.isArray(filters)){
-      const info = await Model.find(filters);
+      const info = await Model.find(filters).sort({createdAt:-1}).lean();
       return res.status(200).json({
               success: true, 
               info
@@ -18,7 +18,7 @@ exports.filter = async(Model, filter = null, req, res) => {
     
     const info = await Promise.all(filters.map(async(f) => ({
       filter: f, 
-      data: await Model.find(f).lean()
+      data: await Model.find(f).sort({createdAt:-1}).lean()
     })))
     
         return res.status(200).json({
