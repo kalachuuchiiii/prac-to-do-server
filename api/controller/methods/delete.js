@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 exports.remove = async(Model, req, res) => {
-  try{
     const { id } = req.params; 
     if(!id || !mongoose.Types.ObjectId.isValid(id)){
       return res.status(404).json({
@@ -14,11 +13,4 @@ exports.remove = async(Model, req, res) => {
             success: true, 
             info
           })
-      }catch(e){
-        console.log("delete", e)
-        return res.status(500).json({
-        success: false, 
-        message: e.message || 'Internal Server Error'
-        });
-      }
 }

@@ -1,5 +1,4 @@
 exports.filter = async(Model, filter = null, req, res) => {
-  try{
     const filters = filter || JSON.parse(req.query?.filters) || null;
     if(!filters){
       return res.status(400).json({
@@ -25,11 +24,4 @@ exports.filter = async(Model, filter = null, req, res) => {
                 success: true, 
                 info
               })
-      }catch(e){
-        console.log("filter", e)
-        return res.status(500).json({
-        success: false, 
-        message: e.message || 'Internal Server Error'
-        });
-      }
 }
