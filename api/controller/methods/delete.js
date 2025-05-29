@@ -9,7 +9,7 @@ exports.remove = async(Model, req, res) => {
         success: false
       })
     }
-    const info = await Model.findByIdAndDelete();
+    const info = await Model.findByIdAndDelete(id);
     return res.status(200).json({
             success: true, 
             info
